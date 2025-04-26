@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.mapper.EmpMapper">
+    <select id="search" resultType="com.zzy.pojo.Emp">
+        select e.*, dept.name deptName
+        from emp e left join dept
+        on e.dept_id = dept.id
+        <where>
+            <if test="param.name != null and param.name != ''">
+                e.name like concat('%',#{param.name},'%')
+            </if>
+            <if test="param.gender != null">
+                and gender = #{param.gender}
+            </if>
+            <if test="param.begin != null and param.end != null">
+                and entry_date between #{param.begin} and #{param.end}
+            </if>
+        </where>
+<!--        limit #{start}, #{pageSize}-->
+    </select>
+</mapper>
