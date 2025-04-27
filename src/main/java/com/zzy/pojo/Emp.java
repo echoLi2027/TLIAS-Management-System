@@ -24,4 +24,6 @@ public class Emp {
 
     private String deptName;
 
+    private List<EmpExpr> exprList;
+
 }

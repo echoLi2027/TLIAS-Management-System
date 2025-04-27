@@ -24,4 +24,6 @@ public interface EmpService {
      * @return
      */
     PageResult queryPage(QueryParam param, Integer page, Integer pageSize);
+
+    void insert(Emp emp) throws Exception;
 }

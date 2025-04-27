@@ -3,6 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zzy.mapper.EmpMapper">
+
+    <insert id="insertExpr">
+        insert into emp_expr(emp_id, begin, end, company, job) values
+        <foreach collection="lists" item="expr">
+            (#{expr.empId},#{expr.empId},#{expr.begin},#{expr.end},#{expr.company},#{expr.job})
+        </foreach>
+    </insert>
+
+
     <select id="search" resultType="com.zzy.pojo.Emp">
         select e.*, dept.name deptName
         from emp e left join dept

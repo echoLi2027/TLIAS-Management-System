@@ -39,6 +39,13 @@ public class EmpController {
         return Result.success(pageResult);
     }
 
+    @PostMapping
+    public Result save(@RequestBody Emp emp) throws Exception {
+        log.info("save info: {}",emp);
+        service.insert(emp);
+        return Result.success();
+    }
+
 
 
 

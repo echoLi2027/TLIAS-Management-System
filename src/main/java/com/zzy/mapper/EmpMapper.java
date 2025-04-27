@@ -2,6 +2,7 @@ package com.zzy.mapper;
 
 import com.zzy.pojo.Dept;
 import com.zzy.pojo.Emp;
+import com.zzy.pojo.EmpExpr;
 import com.zzy.pojo.QueryParam;
 import org.apache.ibatis.annotations.*;
 
@@ -20,4 +21,13 @@ public interface EmpMapper {
     List<Emp> list();
 
     List<Emp> search(@Param("param") QueryParam param);
+
+
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    @Insert("insert into emp(username, name, gender, phone, job, salary, image, dept_id, create_time, update_time, entry_date) " +
+            "values (#{username}, #{name}, #{gender}, #{phone}, #{job}, #{salary}, #{image}, #{deptId}, #{createTime}, #{updateTime}, #{entryDate})")
+    void insert(Emp emp);
+
+
+
 }
