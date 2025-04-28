@@ -23,6 +23,11 @@ public class GlobalExceptionHandler {
         return Result.error(strings[2]+" already existed.");
     }
 
+    @ExceptionHandler
+    public Result propEx(PropagateException e){
+        return Result.error(e.getMessage());
+    }
+
 
 
 }

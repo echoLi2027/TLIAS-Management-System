@@ -23,4 +23,5 @@ public class Clazz {
 
     private String masterName; //班主任姓名
     private String status; //班级状态 - 未开班 , 在读 , 已结课
+
 }

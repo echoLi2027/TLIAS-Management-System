@@ -10,7 +10,9 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -47,10 +49,10 @@ public class EmpController {
         return Result.success();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{ids}")
     public Result deleteByIds(@RequestParam List<Integer> ids){
 
-        log.info("delete by id:{}",ids);
+        log.info("delete by ids:{}",ids);
 
         service.deleteByIds(ids);
 
@@ -79,6 +81,12 @@ public class EmpController {
     }
 
 
+    @GetMapping("/list")
+    public Result getAll(){
+        List<Emp> empList = service.getAll();
+
+        return Result.success(empList);
+    }
 
 
 

@@ -50,4 +50,10 @@ public interface EmpService {
      * @param emp
      */
     void update(Emp emp);
+
+    /**
+     * get all employees in the company
+     * @return
+     */
+    List<Emp> getAll();
 }

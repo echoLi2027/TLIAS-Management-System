@@ -21,6 +21,9 @@ mybatis:
 logging:
   level:
     org.springframework.jdbc.support.JdbcTransactionManager: debug
+    root: info
+    org.springframework.web: debug
+
 pagehelper:
 #  this can turn unreasonable input into reasonable. e.g. page <= 0 -> page = 1
   reasonable: true

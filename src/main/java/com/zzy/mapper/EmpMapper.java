@@ -34,4 +34,7 @@ public interface EmpMapper {
     Emp searchById(Integer id);
 
     void update(Emp emp);
+
+    @Select("SELECT id, username, password, name, gender, phone, job, salary, image, entry_date, dept_id, create_time, update_time FROM emp")
+    List<Emp> getAll();
 }
