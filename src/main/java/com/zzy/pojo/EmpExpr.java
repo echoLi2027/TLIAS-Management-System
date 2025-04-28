@@ -16,4 +16,16 @@ public class EmpExpr {
     private String company; //公司名称
     private String job; //职位
 
+
+    @Override
+    public String toString() {
+        return "EmpExpr{" +
+                "id=" + id +
+                ", empId=" + empId +
+                ", begin=" + begin +
+                ", end=" + end +
+                ", company='" + company + '\'' +
+                ", job='" + job + '\'' +
+                '}';
+    }
 }

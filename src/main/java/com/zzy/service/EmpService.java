@@ -25,5 +25,29 @@ public interface EmpService {
      */
     PageResult queryPage(QueryParam param, Integer page, Integer pageSize);
 
+    /**
+     * insert emp and emp_expr
+     * @param emp
+     * @throws Exception
+     */
     void insert(Emp emp) throws Exception;
+
+    /**
+     * delete emp which id in ids
+     * @param ids
+     */
+    void deleteByIds(List<Integer> ids);
+
+    /**
+     * search emp and emp_expr by id
+     * @param id
+     * @return
+     */
+    Emp searchById(Integer id);
+
+    /**
+     * update emp
+     * @param emp
+     */
+    void update(Emp emp);
 }

@@ -26,4 +26,24 @@ public class Emp {
 
     private List<EmpExpr> exprList;
 
+    @Override
+    public String toString() {
+        return "Emp{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", gender=" + gender +
+                ", phone='" + phone + '\'' +
+                ", job=" + job +
+                ", salary=" + salary +
+                ", image='" + image + '\'' +
+                ", entryDate=" + entryDate +
+                ", deptId=" + deptId +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", deptName='" + deptName + '\'' +
+                ", exprList=" + exprList +
+                '}';
+    }
 }

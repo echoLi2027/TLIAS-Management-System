@@ -8,14 +8,18 @@ import com.zzy.mapper.EmpMapper;
 import com.zzy.pojo.*;
 import com.zzy.service.EmpLogService;
 import com.zzy.service.EmpService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Service
 public class EmpServiceImpl implements EmpService {
 
@@ -81,9 +85,9 @@ public class EmpServiceImpl implements EmpService {
 
 //        will throw the exception, but still commit the transaction
 
-        if (true){
+        /*if (true){
             throw new Exception("there is exception~");
-        }
+        }*/
 
 //        not safe, what if emp.getExprList() is null
       /*
@@ -107,5 +111,52 @@ public class EmpServiceImpl implements EmpService {
 
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void deleteByIds(List<Integer> ids) {
+
+//        1. delete basic emp info from emp table
+        empMapper.deleteEmp(ids);
+
+//        2. delete according emp_expr from emp_expr table
+        empExprMapper.deleteEmpExpr(ids);
+
+    }
+
+    @Override
+    public Emp searchById(Integer id) {
+        return empMapper.searchById(id);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void update(Emp emp) {
+
+        emp.setUpdateTime(LocalDateTime.now());
+
+//        1. update basic emp->emp table
+        empMapper.update(emp);
+
+        //        2. update empExpr -> emp_expr table
+        //        2.1 delete previous empExpr
+//        *******cannot judge empty first, because maybe user just delete previous empExpr that's why the empExpr is empty ******
+        empExprMapper.deleteEmpExpr(Arrays.asList(emp.getId()));
+
+        Integer empId = emp.getId();
+
+        List<EmpExpr> exprList = emp.getExprList();
+
+        if (!CollectionUtils.isEmpty(exprList)){
+
+            log.info("exprList has empId?:{}",exprList);
+
+            exprList.forEach(empExpr -> empExpr.setEmpId(empId));
+
+            //        2.2 insert new empExpr
+            empExprMapper.insertExpr(exprList);
+
+        }
+
+    }
 
 }

@@ -5,6 +5,7 @@ import com.zzy.pojo.*;
 import com.zzy.service.DeptService;
 import com.zzy.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +46,38 @@ public class EmpController {
         service.insert(emp);
         return Result.success();
     }
+
+    @DeleteMapping
+    public Result deleteByIds(@RequestParam List<Integer> ids){
+
+        log.info("delete by id:{}",ids);
+
+        service.deleteByIds(ids);
+
+        return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    public Result searchById(@PathVariable Integer id){
+
+        log.info("search by id:{}", id);
+
+        Emp emp = service.searchById(id);
+
+        return Result.success(emp);
+
+    }
+
+    @PutMapping
+    public Result updateById(@RequestBody Emp emp){
+
+        log.info("emp is: {}",emp);
+
+        service.update(emp);
+
+        return Result.success();
+    }
+
 
 
 

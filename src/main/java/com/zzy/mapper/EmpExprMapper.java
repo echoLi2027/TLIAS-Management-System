@@ -10,4 +10,6 @@ import java.util.List;
 public interface EmpExprMapper {
 
     void insertExpr(List<EmpExpr> exprList);
+
+    void deleteEmpExpr(List<Integer> ids);
 }
