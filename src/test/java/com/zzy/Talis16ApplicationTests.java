@@ -3,6 +3,7 @@ package com.zzy;
 import com.zzy.exception.GlobalExceptionHandler;
 import com.zzy.exception.PropagateException;
 import com.zzy.pojo.Result;
+import com.zzy.pojo.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +23,7 @@ class Talis16ApplicationTests {
 
     @Test
     void exceptionTest() {
-        Result result = handler.propEx(new PropagateException());
+        Result result = handler.propEx(new PropagateException(new Student()));
         System.out.println("Error message: " + result.getMsg());
         // 或者使用断言
         // assertEquals("对不起，该班级下有学生，不能直接删除。", result.getMsg());

@@ -87,7 +87,7 @@ public class ClazzServiceImpl implements ClazzService {
             clazzMapper.deleteById(id);
         }else {
 //            2.2 otherwise throw an exception;
-            throw new PropagateException();
+            throw new PropagateException(students.get(0));
         }
     }
 

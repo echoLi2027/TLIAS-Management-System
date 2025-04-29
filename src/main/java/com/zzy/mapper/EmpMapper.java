@@ -37,4 +37,6 @@ public interface EmpMapper {
 
     @Select("SELECT id, username, password, name, gender, phone, job, salary, image, entry_date, dept_id, create_time, update_time FROM emp")
     List<Emp> getAll();
+
+    List<Emp> findByDeptId(Integer id);
 }

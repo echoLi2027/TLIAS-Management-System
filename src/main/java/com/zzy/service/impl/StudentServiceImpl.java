@@ -62,7 +62,7 @@ public class StudentServiceImpl implements StudentService {
         studentMapper.deleteByIds(ids);
     }
 
-    @Transactional(rollbackFor = Exception.class)
+
     @Override
     public void violationProcess(Integer id, Short score) {
 

@@ -93,4 +93,10 @@
         from emp e left join emp_expr ee on e.id = ee.emp_id
         where e.id = #{id};
     </select>
+
+    <select id="findByDeptId" resultType="com.zzy.pojo.Emp">
+        select
+        e.*
+        from emp e, dept d where e.dept_id = d.id and d.id = #{id}
+    </select>
 </mapper>
