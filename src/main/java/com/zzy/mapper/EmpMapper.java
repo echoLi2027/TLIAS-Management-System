@@ -1,9 +1,6 @@
 package com.zzy.mapper;
 
-import com.zzy.pojo.Dept;
-import com.zzy.pojo.Emp;
-import com.zzy.pojo.EmpExpr;
-import com.zzy.pojo.QueryParam;
+import com.zzy.pojo.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -39,4 +36,7 @@ public interface EmpMapper {
     List<Emp> getAll();
 
     List<Emp> findByDeptId(Integer id);
+
+    @Select("select username, name, id from emp where username=#{username} and password=#{password}")
+    LoginInfo findByUsernameAndPassword(Emp emp);
 }

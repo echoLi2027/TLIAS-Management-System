@@ -1,9 +1,6 @@
 package com.zzy.service;
 
-import com.zzy.pojo.Dept;
-import com.zzy.pojo.Emp;
-import com.zzy.pojo.PageResult;
-import com.zzy.pojo.QueryParam;
+import com.zzy.pojo.*;
 
 import java.util.List;
 
@@ -56,4 +53,11 @@ public interface EmpService {
      * @return
      */
     List<Emp> getAll();
+
+    /**
+     * find emp by username and password
+     * @param emp
+     * @return
+     */
+    LoginInfo findByUsernameAndPassword(Emp emp);
 }

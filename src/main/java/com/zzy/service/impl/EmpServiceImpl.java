@@ -8,16 +8,20 @@ import com.zzy.mapper.EmpMapper;
 import com.zzy.pojo.*;
 import com.zzy.service.EmpLogService;
 import com.zzy.service.EmpService;
+import com.zzy.utils.JwtUtils;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -163,6 +167,27 @@ public class EmpServiceImpl implements EmpService {
     public List<Emp> getAll() {
 
         return empMapper.getAll();
+    }
+
+    @Override
+    public LoginInfo findByUsernameAndPassword(Emp emp) {
+
+        LoginInfo info = empMapper.findByUsernameAndPassword(emp);
+
+        if (info!=null){
+            HashMap<String, Object> claims = new HashMap<>();
+            claims.put("id", info.getId());
+            claims.put("username", info.getUsername());
+
+//            1. create jwt
+            String jwt = JwtUtils.createToken(claims);
+
+//            2. set token
+            info.setToken(jwt);
+
+        }
+
+        return info;
     }
 
 }
