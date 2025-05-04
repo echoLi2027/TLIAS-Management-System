@@ -1,6 +1,7 @@
 package com.zzy.controller;
 
 
+import com.zzy.anno.LogOperation;
 import com.zzy.pojo.Dept;
 import com.zzy.pojo.Result;
 import com.zzy.service.DeptService;
@@ -19,12 +20,14 @@ public class DeptController {
     @Autowired
     private DeptService service;
 
+
     @GetMapping
     public Result list(){
         List<Dept> deptList = service.findAll();
         return Result.success(deptList);
     }
 
+    @LogOperation
     @DeleteMapping
     //   public Result delDept(Integer id)// also works, it required that request param name is same as this name("id") in the method defined
     public Result delDept(@RequestParam("id") Integer id){
@@ -34,6 +37,7 @@ public class DeptController {
         return Result.success();
     }
 
+    @LogOperation
     @PostMapping
 //    here request param is a json variable, using @RequestBody can convert it directly into an obj
     public Result insertDept(@RequestBody Dept dept){
@@ -43,6 +47,7 @@ public class DeptController {
         return Result.success();
     }
 
+    @LogOperation
     @RequestMapping("/{id}")
     public Result searchById(@PathVariable Integer id){
 //        System.out.println("path id is : " + id);
@@ -51,6 +56,7 @@ public class DeptController {
         return Result.success(dept);
     }
 
+    @LogOperation
     @PutMapping
     public Result update(@RequestBody Dept dept){
 //        System.out.println(dept);
