@@ -16,6 +16,5 @@ public interface OperateLogMapper {
     public void insert(OperateLog log);
 
 
-    @Select("select * from operate_log")
-    List<OperateLog> findAll();
+    List<OperateLog> pageSelect();
 }

@@ -28,10 +28,10 @@ public class LogServiceImpl implements LogService {
 
         PageHelper.startPage(page, pageSize);
 
-        List<OperateLog> logs = operateLogMapper.findAll();
+        Page<OperateLog> operateLogs = (Page<OperateLog>) operateLogMapper.pageSelect();
 
-        Page<OperateLog> p = (Page<OperateLog>) logs;
+        PageResult operateLogPageResult = new PageResult(operateLogs.getTotal(), operateLogs.getResult());
 
-        return new PageResult(p.getTotal(), p.getResult());
+        return operateLogPageResult;
     }
 }

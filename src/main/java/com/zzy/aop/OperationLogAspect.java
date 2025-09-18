@@ -31,23 +31,27 @@ public class OperationLogAspect {
 //        3. get method params
         Object[] args = joinPoint.getArgs();
 
-//        4. get operate time
-        LocalDateTime operateTime = LocalDateTime.now();
-//        5.1 get cost time(start)
-        long startTime = System.currentTimeMillis();
-//        6. get return value
+        long begin = System.currentTimeMillis();
+
         Object result = joinPoint.proceed();
-//        5.2 get cost time(end)
-        long endTime = System.currentTimeMillis();
-//        5.3 get cost time
-        long executeTime = endTime - startTime;
-//        6. get empId
-        Integer empId = CurrentHolder.getCurrentId();
-//        7. create operate log
-        OperateLog operateLog = new OperateLog(null, empId, operateTime, className, methodName, Arrays.toString(args), result.toString(), executeTime);
-//        8. insert operate log
+
+        long end = System.currentTimeMillis();
+
+
+        OperateLog operateLog = new OperateLog();
+        operateLog.setCostTime(end - begin);
+        operateLog.setOperateTime(LocalDateTime.now());
+        operateLog.setMethodName(methodName);
+        operateLog.setClassName(className);
+        operateLog.setReturnValue(result.toString());
+        operateLog.setMethodParams(Arrays.toString(args));
+//        when no filter check, this may cause error.
+        operateLog.setOperateEmpId(CurrentHolder.getCurrentId());
+
+
         operateLogMapper.insert(operateLog);
-//        9. return
+
+
         return result;
     }
 
