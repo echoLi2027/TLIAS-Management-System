@@ -1,0 +1,32 @@
+package com.zzy.service.impl;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.zzy.mapper.OperateLogMapper;
+import com.zzy.pojo.OperateLog;
+import com.zzy.pojo.PageResult;
+import com.zzy.pojo.Student;
+import com.zzy.pojo.StudentParam;
+import com.zzy.service.LogService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class LogServiceImpl implements LogService {
+
+    @Autowired
+    private OperateLogMapper operateLogMapper;
+
+
+    @Override
+    public PageResult findByPage(Integer page, Integer pageSize) {
+
+        PageHelper.startPage(page, pageSize);
+
+        Page<OperateLog> operateLogs = (Page<OperateLog>) operateLogMapper.pageSelect();
+
+        PageResult operateLogPageResult = new PageResult(operateLogs.getTotal(), operateLogs.getResult());
+
+        return operateLogPageResult;
+    }
+}
